@@ -1,8 +1,6 @@
 # Architecture
-
-Your idea to use three servers under the same domain for a landing page, prepstation, and orderhub is solid, especially if you’re aiming for a microservices architecture. Here’s a breakdown of your architecture, along with recommendations and potential improvements:
-
-1. Core Components of the Architecture
+--------------------------------------------------------------
+Core Components of the Architecture
 
 1.1. Landing Page Server
 
@@ -30,8 +28,8 @@ Your idea to use three servers under the same domain for a landing page, prepsta
 	•	Handling menu updates, restaurant details, and availability.
 	•	Receiving order notifications from OrderHub.
 	•	Tech Stack: Next.js for the dashboard, with integration for real-time communication (e.g., WebSockets or cloud messaging).
-
-2. Communication Between Services
+--------------------------------------------------------------
+Communication Between Services
 
 For microservices, inter-service communication is critical. Here are the primary options:
 
@@ -76,8 +74,8 @@ For microservices, inter-service communication is critical. Here are the primary
 	•	Reliable message delivery.
 	•	Cons:
 	•	Adds complexity with an external service.
-
-3. Recommended Architecture
+--------------------------------------------------------------
+Recommended Architecture
 
 Based on your goals to mimic microservices, here’s the recommended architecture:
 
@@ -114,8 +112,8 @@ Use a shared authentication provider (e.g., Clerk, Auth0, or Firebase Auth) acro
 	•	Use SNS for publishing updates and SQS for queueing messages if reliability is critical.
 	•	Apache Kafka:
 	•	Excellent for high-throughput systems requiring event streaming.
-
-4. Database Design
+--------------------------------------------------------------
+Database Design
 
 Option 1: Shared Database
 
@@ -132,8 +130,8 @@ Option 2: Separate Databases
 	•	Use a message broker for syncing data between databases.
 	•	Pros: True microservices architecture; independent scaling.
 	•	Cons: Requires more effort to manage consistency.
-
-5. Authentication
+--------------------------------------------------------------
+Authentication
 
 To handle authentication across all three services:
 	1.	Use a Centralized Provider:
@@ -141,8 +139,8 @@ To handle authentication across all three services:
 	•	Share tokens between services for unified user sessions.
 	2.	Subdomain Cookies:
 	•	Use cookies with the Domain=.example.com attribute so they work across all subdomains (e.g., landing.example.com, orderhub.example.com, and prepstation.example.com).
-
-6. Deployment and Scaling
+--------------------------------------------------------------
+Deployment and Scaling
 
 	•	Hosting: Use a platform like Vercel or AWS for deploying each Next.js server.
 	•	Domain Structure:
@@ -153,7 +151,7 @@ To handle authentication across all three services:
 	•	Use a load balancer (e.g., AWS ALB or NGINX) to distribute traffic and scale servers.
 	•	Message Broker:
 	•	Deploy your message broker (e.g., Firebase Cloud Messaging or Kafka) to handle real-time communication between services.
-
+--------------------------------------------------------------
 Summary Architecture
 
 	1.	Landing Page: A lightweight server for marketing content.
